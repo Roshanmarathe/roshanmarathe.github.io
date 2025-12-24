@@ -1,0 +1,777 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roshan Marathe | AI & Quant Trader</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00f2ff; /* Cyan */
+            --secondary: #7000ff; /* Purple */
+            --bg: #050510;
+            --glass: rgba(20, 20, 35, 0.6);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --text-dim: #a0a0b0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* --- 3D Canvas --- */
+        #canvas-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #101025 0%, #000000 100%);
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            background: rgba(5, 5, 16, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            transition: 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0; width: 0%; height: 2px;
+            background: var(--primary);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- Common Layout --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        .highlight {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            bottom: 10px; right: -20px;
+            width: 50px; height: 50px;
+            border-bottom: 3px solid var(--secondary);
+            border-right: 3px solid var(--secondary);
+            opacity: 0.5;
+        }
+
+        /* --- Profile Image Styling --- */
+        .profile-img-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 25px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+            transform: translateZ(30px);
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%) contrast(110%);
+            transition: 0.5s;
+        }
+
+        .profile-img-container:hover img {
+            filter: grayscale(0%) contrast(100%);
+            scale: 1.05;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .typewriter {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            margin-bottom: 30px;
+            height: 30px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            border-left: 2px solid var(--secondary);
+            padding-left: 20px;
+        }
+
+        .btn-group { display: flex; gap: 20px; }
+
+        .cta-btn {
+            padding: 12px 35px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0; height: 100%;
+            background: var(--primary);
+            z-index: -1;
+            transition: 0.3s;
+        }
+
+        .cta-btn:hover::before { width: 100%; }
+        .cta-btn:hover { color: #000; box-shadow: 0 0 20px rgba(0, 242, 255, 0.4); }
+
+        .cta-btn.secondary {
+            border-color: var(--text-dim);
+            color: var(--text-dim);
+        }
+
+        /* --- Glass Cards --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            padding: 35px;
+            border-radius: 15px;
+            transition: 0.4s;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .card h3 { font-size: 1.3rem; margin-bottom: 15px; color: #fff; transform: translateZ(20px); }
+        .card p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.6; transform: translateZ(20px); }
+        .icon-box { font-size: 2.2rem; color: var(--secondary); margin-bottom: 20px; transform: translateZ(30px); }
+
+        /* --- Skills --- */
+        .skill-item { margin-bottom: 15px; width: 100%; }
+        .skill-header { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.8rem; }
+        .progress-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--secondary), var(--primary)); width: 0; border-radius: 3px; }
+
+        /* --- Project Tags --- */
+        .project-tags { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .tag { font-size: 0.75rem; padding: 5px 12px; background: rgba(0, 242, 255, 0.1); color: var(--primary); border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 20px; }
+        .github-link { margin-top: 25px; display: inline-block; color: #fff; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .github-link:hover { color: var(--primary); padding-left: 5px; }
+
+        /* --- Contact Form --- */
+        .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .contact-form { background: var(--glass); padding: 40px; border-radius: 15px; border: 1px solid var(--border); }
+        .form-group { margin-bottom: 25px; position: relative; }
+        .form-input { width: 100%; padding: 15px 0; background: transparent; border: none; border-bottom: 1px solid var(--text-dim); color: #fff; outline: none; transition: 0.3s; }
+        .form-input:focus { border-bottom-color: var(--primary); }
+        .form-label { position: absolute; top: 15px; left: 0; color: var(--text-dim); pointer-events: none; transition: 0.3s; font-size: 0.9rem; }
+        .form-input:focus ~ .form-label, .form-input:valid ~ .form-label { top: -10px; font-size: 0.75rem; color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 50px 0; text-align: center; color: var(--text-dim); margin-top: 50px; }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .nav-links { display: none; }
+            .grid { grid-template-columns: 1fr; }
+            .contact-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">RM<span style="color:var(--primary)">.</span></div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#disciplines">What I Do</a>
+                <a href="#services">Expertise</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <a href="#contact" class="cta-btn" style="padding: 8px 20px; font-size: 0.8rem;">Let's Talk</a>
+        </div>
+    </nav>
+
+    <section id="home" class="hero container">
+        <h3 style="color: var(--primary); letter-spacing: 2px; margin-bottom: 10px;">HELLO, I AM</h3>
+        <h1>Roshan <span class="highlight">Marathe</span></h1>
+        <div class="typewriter" id="typewriter-text"></div>
+        <p>
+            "In data I trust, in models I reason." <br>
+            Bridging the gap between <strong>Advanced Machine Learning</strong> and <strong>Quantitative Finance</strong> to decode market complexities.
+        </p>
+        <div class="btn-group">
+            <a href="#projects" class="cta-btn">View Work</a>
+            <a href="#contact" class="cta-btn secondary">Contact Me</a>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2 class="section-title">About <span class="highlight">Me</span></h2>
+        <div class="grid" style="grid-template-columns: 1.8fr 1.2fr;">
+            <div class="card" data-tilt>
+                <p style="font-size: 1.1rem; color: #fff; margin-bottom: 20px;">
+                    I am a technologist specializing in the intersection of **Artificial Intelligence** and **Financial Markets**. My work focuses on building robust quantitative models, backtesting trading strategies, and leveraging data science to uncover hidden alpha.
+                </p>
+                <p>
+                    Whether it's deploying a Neural Network for price prediction or optimizing SQL queries for massive datasets, I bring a disciplined, engineering-first approach to finance.
+                </p>
+                <div style="margin-top: 30px; display: flex; gap: 30px;">
+                    <div>
+                        <h1 style="color: var(--primary); margin: 0;">15+</h1>
+                        <span style="font-size: 0.8rem; color: var(--text-dim);">Projects Completed</span>
+                    </div>
+                    <div>
+                        <h1 style="color: var(--secondary); margin: 0;">1.5k+</h1>
+                        <span style="font-size: 0.8rem; color: var(--text-dim);">Hours Coding</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" data-tilt style="text-align: center;">
+                <div class="profile-img-container">
+                   <img src="images/profile.jpg" alt="Roshan Marathe">
+                </div>
+                <h3>Technical Core</h3>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Python (Quant/AI)</span><span>95%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>SQL & Databases</span><span>90%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Machine Learning</span><span>85%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="disciplines" class="container">
+        <h2 class="section-title">What <span class="highlight">I Do</span></h2>
+        <div class="grid">
+            <div class="card" data-tilt>
+                <div class="icon-box"><i class="fas fa-microscope"></i></div>
+                <h3>Quantitative Research</h3>
+                <p>Research financial markets and build statistical models to identify trading opportunities.</p>
+            </div>
+            <div class="card" data-tilt>
+                <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                <h3>Predictive Analytics</h3>
+                <p>Use historical data to forecast trends, price movements, and high-probability signals.</p>
+            </div>
+            <div class="card" data-tilt>
+                <div class="icon-box"><i class="fas fa-robot"></i></div>
+                <h3>Systematic Trading</h3>
+                <p>Design rule-based trading strategies driven by logic and disciplined execution.</p>
+            </div>
+            <div class="card" data-tilt>
+                <div class="icon-box"><i class="fas fa-shield-virus"></i></div>
+                <h3>Risk Management</h3>
+                <p>Analyze drawdowns and volatility to manage and control downside market exposure.</p>
+            </div>
+            <div class="card" data-tilt>
+                <div class="icon-box"><i class="fas fa-history"></i></div>
+                <h3>Time-Series Analysis</h3>
+                <p>Analyze financial time-series data to identify trends, seasonality, and anomalies.</p>
+            </div>
+            <div class="card" data-tilt>
+                <div class="icon-box"><i class="fas fa-terminal"></i></div>
+                <h3>Algorithmic Execution</h3>
+                <p>Develop automated execution logic focused on market consistency and efficiency.</p>
+            </div>
+            <div class="card" data-tilt>
+                <div class="icon-box"><i class="fas fa-brain"></i></div>
+                <h3>ML for Finance</h3>
+                <p>Apply ML models for prediction, classification, and intelligent decision systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="container">
+        <h2 class="section-title">Core <span class="highlight">Expertise</span></h2>
+        <div class="grid">
+            <div class="card" data-tilt>
+                <div class="icon-box"><i class="fas fa-laptop-code"></i></div>
+                <h3>Software Engineering</h3>
+                <p>Building scalable financial applications using clean code and modular architecture.</p>
+            </div>
+            <div class="card" data-tilt>
+                <div class="icon-box"><i class="fas fa-project-diagram"></i></div>
+                <h3>Deep Learning</h3>
+                <p>Implementing LSTMs and Transformers for complex sequence and pattern recognition.</p>
+            </div>
+            <div class="card" data-tilt>
+                <div class="icon-box"><i class="fas fa-database"></i></div>
+                <h3>Data Engineering</h3>
+                <p>Extracting insights from complex datasets using SQL and professional ETL pipelines.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="container">
+        <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
+        <div class="grid">
+            <div class="card" data-tilt>
+                <h3>Algo-Trading Bot</h3>
+                <p>A Python-based systematic trading bot executing orders based on RSI and MACD crossovers.</p>
+                <div class="project-tags">
+                    <span class="tag">Python</span><span class="tag">API</span><span class="tag">Finance</span>
+                </div>
+                <a href="https://github.com/roshanmarathe" target="_blank" class="github-link">View Code <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="card" data-tilt>
+                <h3>Stock Price Predictor</h3>
+                <p>LSTM Neural Network trained on historical data to forecast price trends with 78% accuracy.</p>
+                <div class="project-tags">
+                    <span class="tag">TensorFlow</span><span class="tag">Deep Learning</span>
+                </div>
+                <a href="https://github.com/roshanmarathe" target="_blank" class="github-link">View Code <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="card" data-tilt>
+                <h3>Portfolio Optimizer</h3>
+                <p>A tool using Modern Portfolio Theory to optimize asset allocation for max Sharpe Ratio.</p>
+                <div class="project-tags">
+                    <span class="tag">NumPy</span><span class="tag">Statistics</span>
+                </div>
+                <a href="https://github.com/roshanmarathe" target="_blank" class="github-link">View Code <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+
+    <footer><p>&copy; 2024 Roshan Marathe. Built with Intelligence.</p></footer>
+
+    <script>
+        // --- 1. Typewriter ---
+        const textElement = document.getElementById('typewriter-text');
+        const texts = ["AI & Machine Learning", "Quantitative Trading", "Data Science Strategies"];
+        let textIndex = 0, charIndex = 0, isDeleting = false;
+        function type() {
+            const currentText = texts[textIndex];
+            textElement.textContent = isDeleting ? currentText.substring(0, charIndex - 1) : currentText.substring(0, charIndex + 1);
+            charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
+            if (!isDeleting && charIndex === currentText.length) { isDeleting = true; setTimeout(type, 2000); }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; textIndex = (textIndex + 1) % texts.length; setTimeout(type, 500); }
+            else { setTimeout(type, isDeleting ? 50 : 100); }
+        }
+        type();
+
+        // --- 2. Three.js ---
+        const initThreeJS = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+            const torusKnot = new THREE.Mesh(new THREE.TorusKnotGeometry(10, 3, 100, 16), new THREE.MeshBasicMaterial({ color: 0x00f2ff, wireframe: true, transparent: true, opacity: 0.1 }));
+            scene.add(torusKnot);
+            camera.position.z = 30;
+            const animate = () => {
+                torusKnot.rotation.y += 0.005;
+                torusKnot.rotation.z += 0.002;
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            };
+            animate();
+            window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+        };
+        initThreeJS();
+
+        // --- 3. Vanilla Tilt ---
+        VanillaTilt.init(document.querySelectorAll(".card"), { max: 10, speed: 400, glare: true, "max-glare": 0.2 });
+
+        // --- 4. GSAP ---
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray("section").forEach(s => gsap.fromTo(s, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, scrollTrigger: { trigger: s, start: "top 80%" } }));
+        gsap.utils.toArray(".grid").forEach(g => gsap.fromTo(g.children, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, scrollTrigger: { trigger: g, start: "top 75%" } }));
+    </script>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact Section</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #0a0f1f, #02030a);
+    color:#fff;
+}
+
+.contact-section{
+    display:flex;
+    gap:40px;
+    padding:80px;
+    align-items:center;
+}
+
+.left{
+    width:40%;
+}
+
+.left h1{
+    font-size:48px;
+}
+.left h1 span{
+    color:#00d4ff;
+}
+.left h2{
+    margin-top:20px;
+    font-size:26px;
+}
+.left p{
+    color:#b0b8c5;
+    margin:15px 0 30px;
+}
+
+.social-links a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:#fff;
+    margin-bottom:15px;
+    transition:0.3s;
+}
+.social-links a i{
+    font-size:20px;
+    color:#00d4ff;
+}
+.social-links a:hover{
+    transform:translateX(8px);
+    color:#00d4ff;
+}
+
+.right{
+    width:60%;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 0 40px rgba(0,212,255,0.15);
+}
+
+form input, form textarea{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    padding:12px 0;
+    margin-bottom:25px;
+    color:#fff;
+    font-size:16px;
+    outline:none;
+}
+
+form textarea{
+    resize:none;
+    height:80px;
+}
+
+.send-btn{
+    width:100%;
+    padding:14px;
+    background:linear-gradient(90deg,#00d4ff,#6a5cff);
+    border:none;
+    border-radius:10px;
+    color:#000;
+    font-size:16px;
+    cursor:pointer;
+    letter-spacing:2px;
+    transition:0.3s;
+}
+.send-btn:hover{
+    box-shadow:0 0 25px #00d4ff;
+}
+
+@media(max-width:900px){
+    .contact-section{
+        flex-direction:column;
+        padding:40px 20px;
+    }
+    .left,.right{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact Section</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #0a0f1f, #02030a);
+    color:#fff;
+}
+
+.contact-section{
+    display:flex;
+    gap:40px;
+    padding:80px;
+    align-items:center;
+}
+
+.left{
+    width:40%;
+}
+
+.left h1{
+    font-size:48px;
+}
+.left h1 span{
+    color:#00d4ff;
+}
+.left h2{
+    margin-top:20px;
+    font-size:26px;
+}
+.left p{
+    color:#b0b8c5;
+    margin:15px 0 30px;
+}
+
+.social-links a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:#fff;
+    margin-bottom:15px;
+    transition:0.3s;
+}
+.social-links a i{
+    font-size:20px;
+    color:#00d4ff;
+}
+.social-links a:hover{
+    transform:translateX(8px);
+    color:#00d4ff;
+}
+
+.right{
+    width:60%;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 0 40px rgba(0,212,255,0.15);
+}
+
+form input, form textarea{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    padding:12px 0;
+    margin-bottom:25px;
+    color:#fff;
+    font-size:16px;
+    outline:none;
+}
+
+form textarea{
+    resize:none;
+    height:80px;
+}
+
+.send-btn{
+    width:100%;
+    padding:14px;
+    background:linear-gradient(90deg,#00d4ff,#6a5cff);
+    border:none;
+    border-radius:10px;
+    color:#000;
+    font-size:16px;
+    cursor:pointer;
+    letter-spacing:2px;
+    transition:0.3s;
+}
+.send-btn:hover{
+    box-shadow:0 0 25px #00d4ff;
+}
+
+@media(max-width:900px){
+    .contact-section{
+        flex-direction:column;
+        padding:40px 20px;
+    }
+    .left,.right{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section class="contact-section">
+
+    <!-- LEFT -->
+    <div class="left">
+        <h1>Get In <span>Touch</span></h1>
+        <h2>Let's Collaborate</h2>
+        <p>Open to discussing quantitative research, AI projects, or full-time opportunities.</p>
+
+        <div class="social-links">
+            <a href="mailto:maratheroshan897@gmail.com">
+                <i class="fa-solid fa-envelope"></i> maratheroshan897@gmail.com
+            </a>
+
+            <a href="https://www.linkedin.com/in/roshan-marathe-960748358/"" target="_blank">
+                <i class="fa-brands fa-linkedin"></i> linkedin.com/in/roshan-marathe
+            </a>
+
+            <a href="https://github.com/roshanmarathe" target="_blank">
+                <i class="fa-brands fa-github"></i> github.com/roshanmarathe
+            </a>
+        </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+        <form action="https://formsubmit.co/maratheroshan897@gmail.com" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="subject" placeholder="Subject">
+            <textarea name="message" placeholder="Message"></textarea>
+
+            <button class="send-btn" type="submit">SEND MESSAGE</button>
+        </form>
+    </div>
+
+</section>
+
+</body>
+</html>
+
+</body>
+</html> 
