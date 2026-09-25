@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roshan Marathe | Data Analyst &amp; AI/ML Engineer</title>
+<meta name="description" content="Portfolio of Roshan Marathe — Data Analyst and AI/ML Engineer focused on data analytics, business intelligence, machine learning, Python, SQL, and Power BI.">
+<meta property="og:title" content="Roshan Marathe | Data Analyst & AI/ML Engineer">
+<meta property="og:description" content="Data Analyst and AI/ML Engineer turning data into insight and impact. Student at IIT Bombay.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070d; --bg2:#090d17; --card:#0e1420; --card2:#101827; --border:rgba(148,163,184,.16);
+  --text:#e7ecf6; --muted:#8b96ad; --a1:#5eb8ff; --a2:#a78bfa; --grad:linear-gradient(135deg,var(--a1),var(--a2));
+  --ring:rgba(94,184,255,.35);
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme="light"]{
+  --bg:#f6f7fb; --bg2:#ffffff; --card:#ffffff; --card2:#f2f4f9; --border:rgba(15,23,42,.1);
+  --text:#0f172a; --muted:#5b667a; --ring:rgba(94,184,255,.25);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:88px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6;overflow-x:hidden;transition:background .4s,color .4s}
+h1,h2,h3,.disp{font-family:'Space Grotesk',Inter,sans-serif}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:110px 0;position:relative}
+img{max-width:100%}
+.bg-fx{position:fixed;inset:0;z-index:-3;background:
+  radial-gradient(600px 400px at 15% 10%,rgba(94,184,255,.10),transparent 60%),
+  radial-gradient(600px 500px at 85% 30%,rgba(167,139,250,.10),transparent 60%),
+  linear-gradient(var(--bg),var(--bg));
+}
+.bg-fx::after{content:'';position:absolute;inset:0;opacity:.25;background-image:
+  linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:64px 64px; mask-image:radial-gradient(ellipse at 50% 0%,#000 40%,transparent 80%);}
+#pfx{position:fixed;inset:0;z-index:-2;opacity:.55}
+
+/* nav */
+nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(920px,92%);
+  background:rgba(10,14,24,.55);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:16px;
+  display:flex;align-items:center;justify-content:space-between;padding:10px 18px;transition:padding .3s}
+:root[data-theme="light"] nav{background:rgba(255,255,255,.7)}
+nav.shrink{padding:6px 18px}
+.logo{font-weight:700;letter-spacing:.02em}
+.navlinks{display:flex;gap:22px;font-size:14px;color:var(--muted)}
+.navlinks a{position:relative;padding:4px 0;transition:color .2s}
+.navlinks a.active,.navlinks a:hover{color:var(--text)}
+.navlinks a.active::after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--grad);border-radius:2px;box-shadow:0 0 10px var(--ring)}
+.navbtns{display:flex;align-items:center;gap:10px}
+.icon-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;background:transparent;color:var(--text);cursor:pointer;transition:transform .2s,border-color .2s}
+.icon-btn:hover{border-color:var(--a1);transform:translateY(-2px)}
+.icon-btn svg{width:16px;height:16px}
+.hamb{display:none}
+#mmenu{position:fixed;inset:0;background:var(--bg);z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;gap:26px;font-size:22px}
+@media (max-width:760px){.navlinks{display:none}.hamb{display:flex}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:12px;font-weight:600;font-size:14.5px;cursor:pointer;border:1px solid transparent;transition:transform .15s,box-shadow .2s}
+.btn-s:hover{transform:translateY(-2px);border-color:var(--a1)}
+.btn-p{background:var(--grad);color:#04060b;box-shadow:0 8px 26px -8px var(--ring)}
+.btn-s{border-color:var(--border);color:var(--text)}
+
+/* hero */
+.hero{padding:170px 0 60px;display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center}
+@media (max-width:900px){.hero{grid-template-columns:1fr;padding-top:140px}}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);border:1px solid var(--border);padding:6px 12px;border-radius:100px;background:var(--card)}
+.badge span.dot{width:6px;height:6px;border-radius:50%;background:var(--a1);box-shadow:0 0 8px var(--a1)}
+.hero h1{font-size:clamp(34px,5.2vw,58px);line-height:1.08;margin:20px 0 14px;font-weight:700}
+.grad-txt{background:linear-gradient(90deg,var(--a1),var(--a2),var(--a1));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:hue 6s linear infinite}
+@keyframes hue{to{background-position:200% center}}
+.hero p.lead{color:var(--muted);max-width:52ch;font-size:16.5px}
+.cta-row{display:flex;gap:14px;margin:30px 0;flex-wrap:wrap}
+.soc-row{display:flex;gap:10px}
+.orb-wrap{position:relative;display:flex;justify-content:center}
+.orb{width:280px;height:280px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 30%,rgba(94,184,255,.16),transparent 60%),var(--card);
+  border:1px solid var(--border);box-shadow:0 0 60px -10px var(--ring)}
+.orb .ring{position:absolute;inset:-18px;border:1px solid var(--border);border-radius:50%;border-top-color:var(--a1);animation:spin 18s linear infinite}
+.orb .ring2{position:absolute;inset:-36px;border:1px dashed var(--border);border-radius:50%;animation:spin 26s linear infinite reverse}
+.avatar{width:210px;height:210px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;font-size:15px;letter-spacing:.05em;color:var(--muted);border:1px solid var(--border);text-align:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+@media (max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{border:1px solid var(--border);border-radius:14px;padding:18px;background:var(--card);transition:transform .2s,border-color .2s}
+.stat:hover{transform:translateY(-3px);border-color:var(--a1)}
+.stat b{font-family:'Space Grotesk';font-size:22px;display:block}
+.stat span{color:var(--muted);font-size:13px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease var(--d,0s),transform .7s ease var(--d,0s)}
+.rv.vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.orb .ring,.orb .ring2,.grad-txt{animation:none}#pfx{display:none}}
+
+.eyebrow{color:var(--a1);font-size:13px;font-weight:600;letter-spacing:.03em}
+h2.sec{font-size:clamp(26px,3.4vw,36px);margin:8px 0 14px}
+.sec-sub{color:var(--muted);max-width:60ch;margin-bottom:36px}
+
+/* cards grid */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px}
+@media (max-width:900px){.grid3{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.grid3{grid-template-columns:1fr}.grid4{grid-template-columns:1fr}}
+.card{border:1px solid var(--border);background:var(--card);border-radius:16px;padding:24px;transform-style:preserve-3d;transition:border-color .25s,transform .15s}
+.card h3{margin:14px 0 8px;font-size:17px}
+.card p{color:var(--muted);font-size:14.5px;margin:0}
+.ic{width:38px;height:38px;border-radius:10px;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#04060b;font-weight:700}
+.tcard{border:1px solid var(--border);background:var(--card);border-radius:16px;padding:22px;text-align:left;transition:border-color .25s,transform .15s}
+.tcard h4{margin:12px 0 6px;font-family:'Space Grotesk'}
+.tcard p{color:var(--muted);font-size:13.5px;margin:0}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}}
+.tline{border-left:2px solid var(--border);padding-left:18px;display:flex;flex-direction:column;gap:22px}
+.tline .pt{position:relative}
+.tline .pt::before{content:'';position:absolute;left:-23px;top:4px;width:9px;height:9px;border-radius:50%;background:var(--a1);box-shadow:0 0 8px var(--a1)}
+.tline b{display:block;font-family:'Space Grotesk'}
+.tline span{color:var(--muted);font-size:14px}
+.chip{display:inline-block;font-size:12.5px;padding:5px 11px;border:1px solid var(--border);border-radius:8px;color:var(--muted);margin:4px 6px 0 0}
+
+/* skills */
+.skgroup{margin-bottom:26px}
+.skgroup h4{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.skchip{padding:8px 14px;border:1px solid var(--border);border-radius:10px;background:var(--card);font-size:13.5px;transition:box-shadow .2s,border-color .2s}
+.skchip:hover{border-color:var(--a2);box-shadow:0 0 14px -4px var(--ring)}
+
+/* pipeline */
+.pipe{display:flex;gap:10px;overflow-x:auto;padding:8px 2px 18px}
+.pipe .stg{flex:0 0 auto;padding:12px 18px;border:1px solid var(--border);border-radius:10px;background:var(--card);font-size:13.5px;font-weight:600;white-space:nowrap;transition:border-color .2s}
+.pipe .stg:hover{border-color:var(--a1)}
+.pipe .arw{align-self:center;color:var(--a1)}
+
+/* filters */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.fbtn{padding:8px 16px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13.5px;cursor:pointer;transition:.2s}
+.fbtn.on{background:var(--grad);color:#04060b;border-color:transparent}
+
+/* project card */
+.pcard{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--card);transform-style:preserve-3d;transition:transform .15s,border-color .25s}
+.pthumb{height:150px;background:linear-gradient(135deg,rgba(94,184,255,.14),rgba(167,139,250,.14));display:flex;align-items:center;justify-content:center}
+.pthumb svg{width:70%;height:70%}
+.pbody{padding:20px}
+.pbody h3{margin:0 0 8px}
+.pbody p{color:var(--muted);font-size:14px}
+.techs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.techs span{font-size:11.5px;padding:4px 9px;border:1px solid var(--border);border-radius:7px;color:var(--muted)}
+.prow{display:flex;gap:10px;margin-top:14px}
+.plink{font-size:13.5px;font-weight:600;text-decoration:none;padding:9px 14px;border-radius:9px;border:1px solid var(--border)}
+.plink.primary{background:var(--grad);color:#04060b;border-color:transparent}
+.morecard{border:1px dashed var(--border);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px;color:var(--muted);font-size:14px}
+
+/* modal */
+#modal{position:fixed;inset:0;background:rgba(2,4,10,.7);backdrop-filter:blur(6px);z-index:80;display:none;align-items:center;justify-content:center;padding:20px}
+.mbox{max-width:660px;width:100%;max-height:86vh;overflow:auto;background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:30px}
+.mclose{float:right;background:none;border:1px solid var(--border);border-radius:8px;width:32px;height:32px;color:var(--text);cursor:pointer}
+.mbox h3{margin-top:6px}
+.mbox .mfield{margin:14px 0}
+.mbox .mfield b{display:block;font-family:'Space Grotesk';font-size:13px;color:var(--a1);margin-bottom:4px}
+.mbox p{color:var(--muted);font-size:14.5px;margin:0}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+.ccard{display:flex;gap:12px;align-items:center;border:1px solid var(--border);border-radius:14px;padding:16px;background:var(--card);text-decoration:none;margin-bottom:12px;transition:border-color .2s,transform .2s}
+.ccard:hover{border-color:var(--a1);transform:translateX(4px)}
+form input,form textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:inherit;margin-bottom:14px;transition:border-color .2s}
+form input:focus,form textarea:focus{border-color:var(--a1)}
+form textarea{min-height:110px;resize:vertical}
+
+.finalcta{text-align:center;padding:90px 0}
+footer{border-top:1px solid var(--border);padding:40px 0;text-align:center;color:var(--muted);font-size:13.5px}
+#totop{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s;z-index:40}
+#totop.show{opacity:1;pointer-events:auto}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);border:1px solid var(--border);padding:6px 12px;border-radius:100px}
+.status .d2{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80}
+:focus-visible{outline:2px solid var(--a1);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="bg-fx"></div>
+<canvas id="pfx"></canvas>
+
+<nav id="nav">
+  <div class="logo">RM<span style="color:var(--a1)">.</span></div>
+  <div class="navlinks" id="navlinks">
+    <a href="#home">Home</a><a href="#about">About</a><a href="#what">What I Do</a>
+    <a href="#expertise">Expertise</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+  </div>
+  <div class="navbtns">
+    <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">◐</button>
+    <button class="icon-btn hamb" id="hambBtn" aria-label="Menu">☰</button>
+  </div>
+</nav>
+<div id="mmenu">
+  <a href="#home">Home</a><a href="#about">About</a><a href="#what">What I Do</a>
+  <a href="#expertise">Expertise</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+  <button class="icon-btn" id="mmClose" style="margin-top:20px">✕</button>
+</div>
+
+<header class="wrap hero" id="home">
+  <div class="rv">
+    <span class="badge"><span class="dot"></span>DATA ANALYST • AI/ML ENGINEER</span>
+    <h1>Hi, I'm Roshan Marathe.<br><span class="grad-txt">I turn data into insights, intelligence, and impact.</span></h1>
+    <p class="lead">Data Analyst and AI/ML Engineer passionate about transforming complex data into meaningful insights, intelligent systems, and practical business solutions.</p>
+    <span class="badge" style="margin-top:6px">IIT Bombay • Data • AI • Machine Learning</span>
+    <div class="cta-row">
+      <a href="#projects" class="btn btn-p">View My Work</a>
+      <a href="#contact" class="btn btn-s">Let's Connect</a>
+    </div>
+    <div class="soc-row">
+      <a class="icon-btn" href="https://github.com/Roshanmarathe" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8M6 20V15c-2 0-3-1-3-3s1-4 3-5c0-1.5.5-3 1-3.5 1.5 0 3 .8 3.5 1.5h3c.5-.7 2-1.5 3.5-1.5.5.5 1 2 1 3.5 2 1 3 3 3 5s-1 3-3 3v5"/></svg></a>
+      <a class="icon-btn" href="https://www.linkedin.com/in/roshan-marathe-960748358/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+      <a class="icon-btn" href="mailto:roshamarathe79@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg></a>
+    </div>
+  </div>
+  <div class="orb-wrap rv">
+    <div class="orb" style="animation:floaty 6s ease-in-out infinite">
+      <div class="ring"></div><div class="ring2"></div>
+      <div class="avatar">ROSHAN<br>MARATHE</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats rv">
+    <div class="stat"><b class="cu" data-n="3">0</b><span>Featured Projects</span></div>
+    <div class="stat"><b>Data + AI</b><span>Core Focus</span></div>
+    <div class="stat"><b>Power BI</b><span>Analytics</span></div>
+    <div class="stat"><b>SQL + Python</b><span>Technical Stack</span></div>
+  </div>
+</div>
+
+<section id="about"><div class="wrap about-grid">
+  <div class="rv">
+    <span class="eyebrow">About Me</span>
+    <h2 class="sec">Grounded in data, driven by curiosity.</h2>
+    <p style="color:var(--muted)">I'm Roshan Marathe, a Data Analyst and AI/ML Engineer focused on using data, analytics, and intelligent technologies to solve real-world problems. I'm a student at IIT Bombay, working across data analytics, business intelligence, machine learning, and visualization.</p>
+    <div style="margin-top:16px">
+      <span class="chip">Data Analytics</span><span class="chip">Business Intelligence</span><span class="chip">Machine Learning</span>
+      <span class="chip">Data Visualization</span><span class="chip">SQL</span><span class="chip">Python</span>
+      <span class="chip">Power BI</span><span class="chip">Predictive Modeling</span>
+    </div>
+  </div>
+  <div class="tline rv">
+    <div class="pt"><b>Education</b><span>IIT Bombay</span></div>
+    <div class="pt"><b>Focus</b><span>Data Analytics + AI/ML</span></div>
+    <div class="pt"><b>Approach</b><span>Data → Insight → Intelligence → Impact</span></div>
+  </div>
+</div></section>
+
+<section id="what"><div class="wrap">
+  <span class="eyebrow rv">What I Do</span>
+  <h2 class="sec rv">Where I add value</h2>
+  <div class="grid3" id="whatGrid"></div>
+</div></section>
+
+<section id="expertise"><div class="wrap">
+  <span class="eyebrow rv">Core Toolkit</span>
+  <h2 class="sec rv">The four tools behind most of my work</h2>
+  <div class="grid4" id="toolGrid"></div>
+  <span class="eyebrow rv">Technical Expertise</span>
+  <h2 class="sec rv">Full stack of skills</h2>
+  <div id="skillWrap" class="rv"></div>
+  <div class="rv" style="margin-top:30px">
+    <span class="status"><span class="d2"></span>STATUS: BUILDING</span>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="eyebrow rv">How I Think About Data</span>
+  <h2 class="sec rv">From raw data to decisions</h2>
+  <div class="pipe rv" id="pipeWrap"></div>
+</div></section>
+
+<section id="projects"><div class="wrap">
+  <span class="eyebrow rv">Selected Projects</span>
+  <h2 class="sec rv">Real work, real datasets</h2>
+  <p class="sec-sub rv">Real-world analytics projects built with data, visualization, SQL, Python, and Power BI — each one written up as a full business case study.</p>
+  <div class="filters rv" id="filters"></div>
+  <div class="grid3" id="projGrid"></div>
+</div></section>
+
+<section><div class="wrap" style="text-align:center">
+  <span class="eyebrow rv">Building in Public</span>
+  <h2 class="sec rv">Explore the code behind the work</h2>
+  <p class="sec-sub rv" style="margin-inline:auto">Explore my projects, experiments, analytics work, and technical journey on GitHub.</p>
+  <a href="https://github.com/Roshanmarathe" target="_blank" rel="noopener" class="btn btn-p rv">Visit GitHub →</a>
+</div></section>
+
+<section class="finalcta"><div class="wrap rv">
+  <h2 class="sec">Have a data problem worth solving?</h2>
+  <p class="sec-sub" style="margin-inline:auto">Let's turn data into something intelligent.</p>
+  <div class="cta-row" style="justify-content:center">
+    <a href="#contact" class="btn btn-p">Start a Conversation</a>
+    <a href="https://github.com/Roshanmarathe" target="_blank" rel="noopener" class="btn btn-s">Explore My GitHub</a>
+  </div>
+</div></section>
+
+<section id="contact"><div class="wrap contact-grid">
+  <div class="rv">
+    <span class="eyebrow">Contact</span>
+    <h2 class="sec">Let's Build Something Intelligent</h2>
+    <p style="color:var(--muted);margin-bottom:24px">Have a project, opportunity, or idea involving data, analytics, or AI? Let's connect.</p>
+    <a class="ccard" href="mailto:roshamarathe79@gmail.com"><b>Email</b>&nbsp;roshamarathe79@gmail.com</a>
+    <a class="ccard" href="https://github.com/Roshanmarathe" target="_blank" rel="noopener"><b>GitHub</b>&nbsp;github.com/Roshanmarathe</a>
+    <a class="ccard" href="https://www.linkedin.com/in/roshan-marathe-960748358/" target="_blank" rel="noopener"><b>LinkedIn</b>&nbsp;Roshan Marathe</a>
+  </div>
+  <form class="rv" id="cform">
+    <input required placeholder="Name" id="f_name">
+    <input required type="email" placeholder="Email" id="f_email">
+    <input required placeholder="Subject" id="f_subj">
+    <textarea required placeholder="Message" id="f_msg"></textarea>
+    <button type="submit" class="btn btn-p" style="width:100%;justify-content:center">Send Message →</button>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:8px">Opens your email client — no message is sent from this page.</p>
+  </form>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div style="font-family:'Space Grotesk';font-weight:700">Roshan Marathe</div>
+    <div style="margin:6px 0">Data Analyst | AI/ML Engineer</div>
+    <div class="soc-row" style="justify-content:center;margin:14px 0">
+      <a class="icon-btn" href="https://github.com/Roshanmarathe" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8M6 20V15c-2 0-3-1-3-3s1-4 3-5c0-1.5.5-3 1-3.5 1.5 0 3 .8 3.5 1.5h3c.5-.7 2-1.5 3.5-1.5.5.5 1 2 1 3.5 2 1 3 3 3 5s-1 3-3 3v5"/></svg></a>
+      <a class="icon-btn" href="https://www.linkedin.com/in/roshan-marathe-960748358/" target="_blank" rel="noopener">in</a>
+      <a class="icon-btn" href="mailto:roshamarathe79@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg></a>
+    </div>
+    <div>© 2026 Roshan Marathe. All rights reserved.</div>
+    <div style="margin-top:6px;opacity:.7">Built with data, curiosity &amp; code.</div>
+  </div>
+</footer>
+
+<div id="modal"><div class="mbox" id="mboxInner"></div></div>
+<button id="totop" aria-label="Back to top">↑</button>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const root=document.documentElement;
+const prefersReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// theme
+const saved=localStorage.getItem('theme');
+if(saved==='light') root.setAttribute('data-theme','light');
+$('#themeBtn').onclick=()=>{
+  const isLight=root.getAttribute('data-theme')==='light';
+  if(isLight) root.removeAttribute('data-theme'); else root.setAttribute('data-theme','light');
+  localStorage.setItem('theme',isLight?'dark':'light');
+};
+
+// mobile menu
+$('#hambBtn').onclick=()=>$('#mmenu').style.display='flex';
+$('#mmClose').onclick=()=>$('#mmenu').style.display='none';
+$$('#mmenu a').forEach(a=>a.onclick=()=>$('#mmenu').style.display='none');
+
+window.addEventListener('scroll',()=>{
+  $('#nav').classList.toggle('shrink',window.scrollY>40);
+  $('#totop').classList.toggle('show',window.scrollY>500);
+});
+$('#totop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+const sections=['home','about','what','expertise','projects','contact'];
+const navA=$$('#navlinks a');
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting) navA.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));
+}),{rootMargin:'-40% 0px -50% 0px'});
+sections.forEach(id=>{const el=document.getElementById(id); if(el) io.observe(el);});
+
+const rio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.15});
+function watchReveal(){$$('.rv:not(.vis)').forEach(el=>rio.observe(el));}
+watchReveal();
+
+const cio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    const el=e.target,end=+el.dataset.n,dur=900,t0=performance.now();
+    function step(t){const p=Math.min((t-t0)/dur,1); el.textContent=Math.floor(p*end)+(p===1?'+':''); if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step); cio.unobserve(el);
+  }
+}),{threshold:.6});
+$$('.cu').forEach(el=>cio.observe(el));
+
+// tilt + magnetic
+function tiltify(el){
+  if(prefersReduced) return;
+  el.addEventListener('mousemove',e=>{
+    const r=el.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    el.style.transform=`perspective(700px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateY(-4px)`;
+  });
+  el.addEventListener('mouseleave',()=>el.style.transform='');
+}
+if(!prefersReduced){
+  $$('.btn-p').forEach(b=>{
+    b.addEventListener('mousemove',e=>{
+      const r=b.getBoundingClientRect();
+      b.style.transform=`translate(${((e.clientX-r.left-r.width/2)*.15).toFixed(1)}px,${((e.clientY-r.top-r.height/2)*.15).toFixed(1)}px)`;
+    });
+    b.addEventListener('mouseleave',()=>b.style.transform='');
+  });
+}
+
+// what i do
+const what=[
+ {t:'Data Analytics',d:'Transform raw datasets into actionable insights using Python, SQL, Excel, and statistical analysis.'},
+ {t:'Business Intelligence',d:'Build interactive Power BI dashboards that help businesses understand KPIs, trends, and performance.'},
+ {t:'AI & Machine Learning',d:'Develop data-driven machine learning solutions for prediction, classification, pattern discovery, and automation.'},
+ {t:'Data Visualization',d:'Create clear and compelling visualizations that turn complex information into understandable stories.'},
+ {t:'SQL & Data Engineering',d:'Query, clean, transform, and analyze structured data using SQL and modern analytical workflows.'},
+ {t:'Analytical Problem Solving',d:'Break complex business problems into measurable questions and data-driven solutions.'}
+];
+$('#whatGrid').innerHTML=what.map((w,i)=>`<div class="card rv" style="--d:${i%3*0.08}s"><div class="ic">${i+1}</div><h3>${w.t}</h3><p>${w.d}</p></div>`).join('');
+$$('#whatGrid .card').forEach(tiltify);
+
+// core toolkit
+const tools=[
+ {n:'Python',d:'Scripting, automation, and data wrangling for analysis pipelines.',svg:'<path d="M8 3h8M8 21h8M6 8c0-3 2-5 6-5s6 2 6 5-2 4-6 4-6 1-6 4 2 5 6 5 6-2 6-5" stroke-width="1.6" fill="none" stroke-linecap="round"/>'},
+ {n:'Excel',d:'Quick modeling, pivot analysis, and ad-hoc business calculations.',svg:'<rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke-width="1.6"/><path d="M4 10h16M10 4v16" stroke-width="1.6"/>'},
+ {n:'SQL',d:'Querying, joining, and transforming structured data at the source.',svg:'<ellipse cx="12" cy="6" rx="8" ry="3" fill="none" stroke-width="1.6"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" fill="none" stroke-width="1.6"/>'},
+ {n:'Power BI',d:'Interactive dashboards and DAX-driven business reporting.',svg:'<rect x="5" y="12" width="4" height="8" fill="none" stroke-width="1.6"/><rect x="11" y="7" width="4" height="13" fill="none" stroke-width="1.6"/><rect x="17" y="3" width="4" height="17" fill="none" stroke-width="1.6"/>'}
+];
+$('#toolGrid').innerHTML=tools.map((t,i)=>`<div class="tcard rv" style="--d:${i*0.07}s"><svg viewBox="0 0 24 24" fill="none" stroke="var(--a1)" width="26" height="26">${t.svg}</svg><h4>${t.n}</h4><p>${t.d}</p></div>`).join('');
+$$('#toolGrid .tcard').forEach(tiltify);
+watchReveal();
+
+// skills
+const sk={
+ 'Languages':['Python','SQL'],
+ 'Data Analytics':['Pandas','NumPy','Matplotlib','Seaborn','Statistics','EDA','Data Cleaning'],
+ 'Business Intelligence':['Power BI','DAX','Power Query','Dashboard Design','Data Modeling'],
+ 'AI / ML':['Machine Learning','Feature Engineering','Model Evaluation','Predictive Analytics','Classification','Regression','Clustering'],
+ 'Tools':['Jupyter Notebook','Git','GitHub','Excel','VS Code']
+};
+$('#skillWrap').innerHTML=Object.entries(sk).map(([g,items])=>
+ `<div class="skgroup"><h4>${g}</h4><div class="chips">${items.map(i=>`<span class="skchip">${i}</span>`).join('')}</div></div>`).join('');
+
+// pipeline
+const pipe=['RAW DATA','CLEAN','EXPLORE','ANALYZE','VISUALIZE','MODEL','INSIGHT','DECISION'];
+$('#pipeWrap').innerHTML=pipe.map((p,i)=>`<div class="stg">${p}</div>`+(i<pipe.length-1?'<div class="arw">→</div>':'')).join('');
+
+// mini chart svgs for project thumbnails
+function miniChart(type){
+ if(type==='bar') return `<svg viewBox="0 0 120 60"><rect x="6" y="30" width="12" height="24" fill="var(--a1)"/><rect x="26" y="18" width="12" height="36" fill="var(--a2)"/><rect x="46" y="8" width="12" height="46" fill="var(--a1)"/><rect x="66" y="22" width="12" height="32" fill="var(--a2)"/><rect x="86" y="14" width="12" height="40" fill="var(--a1)"/></svg>`;
+ if(type==='line') return `<svg viewBox="0 0 120 60"><polyline points="4,50 24,36 44,42 64,20 84,26 100,8" fill="none" stroke="var(--a1)" stroke-width="3"/><circle cx="100" cy="8" r="3.5" fill="var(--a2)"/></svg>`;
+ return `<svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="14" fill="none" stroke="var(--border)" stroke-width="4"/><circle cx="18" cy="18" r="14" fill="none" stroke="var(--a1)" stroke-width="4" stroke-dasharray="60 100" stroke-linecap="round" transform="rotate(-90 18 18)"/><circle cx="18" cy="18" r="14" fill="none" stroke="var(--a2)" stroke-width="4" stroke-dasharray="25 100" stroke-dashoffset="-60" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg>`;
+}
+
+// projects data (detailed, real projects only — no invented results/metrics)
+const projects=[
+ {id:'sales',title:'Sales Performance Dashboard',tags:['Power BI','Data Analytics'],chart:'bar',
+  desc:"An interactive Power BI dashboard designed to analyze sales performance, revenue trends, product performance, regional contribution, and key business KPIs.",
+  tech:['Power BI','DAX','Power Query','Data Analysis','Data Visualization'],
+  github:'https://github.com/Roshanmarathe/Sales-analysis-Power-bi-',
+  overview:'A Power BI dashboard built to give stakeholders a clear, interactive view of sales performance across products and regions.',
+  problem:'Sales records were spread across flat exports with no single view to compare products, regions, and time periods.',
+  objective:'Provide a consolidated, self-serve dashboard to track revenue trends, product performance, and regional contribution.',
+  data:'Historical sales records including product, region, date, and revenue fields.',
+  tools:'Power BI, DAX, Power Query.',
+  approach:'Profiled the raw data first, cleaned and shaped it in Power Query, modeled relationships between tables, then wrote DAX measures for revenue, growth, and contribution.',
+  challenges:'Inconsistent region and product naming across historical exports had to be standardized before the data could be grouped reliably.',
+  analysis:'Trend analysis over time combined with product and region-level breakdowns to compare performance side by side.',
+  features:'Revenue trend charts, product performance breakdown, regional contribution view, KPI cards with drill-down.',
+  skills:'Data modeling, DAX measures, Power Query transformations, dashboard UX.',
+  insights:'Makes it possible to see which products and regions are driving performance without digging through raw exports.',
+  outcome:'A reusable dashboard template that can be pointed at new sales exports for ongoing tracking.'},
+ {id:'student',title:'Student Performance Dashboard',tags:['Power BI','Data Analytics'],chart:'line',
+  desc:"An interactive analytics dashboard focused on understanding student performance, academic trends, and important performance indicators through data visualization.",
+  tech:['Power BI','Data Analysis','Data Visualization','Dashboard Design'],
+  github:'https://github.com/Roshanmarathe/Student-performance-analysis',
+  overview:'A dashboard exploring academic performance data to highlight trends across students and subjects.',
+  problem:'Raw academic records are difficult to interpret at a glance without a structured, visual layer on top.',
+  objective:'Turn student performance records into a clear, explorable view of trends and indicators for quick review.',
+  data:'Student academic performance records across subjects and assessments.',
+  tools:'Power BI and applied data visualization techniques.',
+  approach:'Explored the dataset to understand score distributions, then structured the findings into a report organized around trend and comparison views.',
+  challenges:'Balancing enough detail for meaningful comparison against keeping the report simple enough to scan quickly.',
+  analysis:'Exploratory analysis of scores and trends across students and subjects, surfaced through comparative visuals.',
+  features:'Performance trend views, subject-level breakdowns, key indicator visuals.',
+  skills:'Exploratory data analysis, dashboard design, data storytelling.',
+  insights:'Makes patterns in academic performance easier to spot and discuss than scanning a spreadsheet.',
+  outcome:'A clear reference dashboard for reviewing student performance data.'},
+ {id:'ecom',title:'E-Commerce Sales Analytics Dashboard',tags:['SQL','Power BI'],chart:'donut',
+  desc:"An end-to-end e-commerce analytics project combining SQL data analysis with Power BI visualization to uncover sales performance, customer behavior, product trends, and business insights.",
+  tech:['SQL','Power BI','DAX','Data Modeling','Data Analysis'],
+  github:'https://github.com/Roshanmarathe/Salesinsight',
+  overview:'An end-to-end project pairing SQL analysis with Power BI visualization for e-commerce sales data.',
+  problem:'Raw e-commerce transaction data needed structured querying before it could be visualized meaningfully.',
+  objective:'Combine SQL-based analysis with a Power BI layer to explore sales, customer behavior, and product trends.',
+  data:'E-commerce transaction and product data.',
+  tools:'SQL, Power BI, DAX, data modeling.',
+  approach:'Wrote SQL queries to extract, join, and shape the transaction data, then built a Power BI model on top with DAX measures for the visual layer.',
+  challenges:'Getting the SQL output into a shape that modeled cleanly in Power BI without duplicating rows across joins.',
+  analysis:'Query-level analysis of sales, customer behavior, and product trends, visualized through the Power BI layer.',
+  features:'Sales trend visuals, customer behavior views, product trend breakdowns.',
+  skills:'SQL querying and joins, data modeling, DAX, end-to-end pipeline thinking.',
+  insights:'Connects raw transactional data to visual insight on what drives e-commerce sales.',
+  outcome:'A combined SQL + Power BI workflow that can be reused as a template for similar transactional datasets.'}
+];
+const allTags=['All','Power BI','SQL','Data Analytics','AI/ML'];
+$('#filters').innerHTML=allTags.map((t,i)=>`<button class="fbtn ${i===0?'on':''}" data-t="${t}">${t}</button>`).join('');
+function renderProj(filter){
+ const list=filter==='All'?projects:projects.filter(p=>p.tags.includes(filter));
+ $('#projGrid').innerHTML=list.map((p,i)=>`
+  <div class="pcard rv vis" style="--d:${i*0.08}s">
+   <div class="pthumb">${miniChart(p.chart)}</div>
+   <div class="pbody">
+    <h3>${p.title}</h3><p>${p.desc}</p>
+    <div class="techs">${p.tech.map(t=>`<span>${t}</span>`).join('')}</div>
+    <div class="prow">
+     <a class="plink" href="${p.github}" target="_blank" rel="noopener">GitHub</a>
+     <button class="plink primary" onclick="openCase('${p.id}')">View Case Study</button>
+    </div>
+   </div>
+  </div>`).join('')
+  + `<div class="pcard morecard rv vis" style="--d:${list.length*0.08}s">
+      <div class="ic">＋</div>
+      <p>More builds, experiments and notebooks live on GitHub — this section grows as new work ships.</p>
+      <a class="plink primary" href="https://github.com/Roshanmarathe" target="_blank" rel="noopener">Browse GitHub →</a>
+     </div>`;
+ $$('#projGrid .pcard').forEach(tiltify);
+}
+renderProj('All');
+$$('.fbtn').forEach(b=>b.onclick=()=>{$$('.fbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderProj(b.dataset.t);});
+
+function openCase(id){
+ const p=projects.find(x=>x.id===id);
+ $('#mboxInner').innerHTML=`
+  <button class="mclose" onclick="closeCase()" aria-label="Close">✕</button>
+  <div class="pthumb" style="border-radius:12px;height:120px">${miniChart(p.chart)}</div>
+  <h3>${p.title}</h3>
+  <div class="mfield"><b>Overview</b><p>${p.overview}</p></div>
+  <div class="mfield"><b>Business Problem</b><p>${p.problem}</p></div>
+  <div class="mfield"><b>Objective</b><p>${p.objective}</p></div>
+  <div class="mfield"><b>Data</b><p>${p.data}</p></div>
+  <div class="mfield"><b>Tools Used</b><p>${p.tools}</p></div>
+  <div class="mfield"><b>Approach</b><p>${p.approach}</p></div>
+  <div class="mfield"><b>Key Challenges</b><p>${p.challenges}</p></div>
+  <div class="mfield"><b>Key Analysis</b><p>${p.analysis}</p></div>
+  <div class="mfield"><b>Dashboard Features</b><p>${p.features}</p></div>
+  <div class="mfield"><b>Skills Demonstrated</b><p>${p.skills}</p></div>
+  <div class="mfield"><b>Key Insights</b><p>${p.insights}</p></div>
+  <div class="mfield"><b>Outcome</b><p>${p.outcome}</p></div>
+  <a class="plink primary" style="display:inline-block;margin-top:6px" href="${p.github}" target="_blank" rel="noopener">View on GitHub →</a>`;
+ $('#modal').style.display='flex';
+}
+function closeCase(){$('#modal').style.display='none';}
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeCase();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCase();});
+
+// contact form -> mailto fallback
+$('#cform').addEventListener('submit',e=>{
+ e.preventDefault();
+ const n=$('#f_name').value,em=$('#f_email').value,s=$('#f_subj').value,m=$('#f_msg').value;
+ const body=encodeURIComponent(`${m}\n\n— ${n} (${em})`);
+ window.location.href=`mailto:roshamarathe79@gmail.com?subject=${encodeURIComponent(s)}&body=${body}`;
+});
+
+// particle background
+const cv=$('#pfx'), ctx=cv.getContext('2d');
+function resize(){cv.width=innerWidth;cv.height=innerHeight;}
+resize(); addEventListener('resize',resize);
+if(!prefersReduced){
+ const N=40, pts=Array.from({length:N},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25}));
+ function loop(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy; if(p.x<0||p.x>cv.width)p.vx*=-1; if(p.y<0||p.y>cv.height)p.vy*=-1;});
+  ctx.fillStyle='#5eb8ff88';
+  pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,1.5,0,7);ctx.fill();});
+  ctx.strokeStyle='#5eb8ff22';
+  for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
+   const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.hypot(dx,dy);
+   if(d<110){ctx.globalAlpha=1-d/110; ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();}
+  }
+  ctx.globalAlpha=1;
+  requestAnimationFrame(loop);
+ }
+ loop();
+}
+</script>
+</body>
+</html>
